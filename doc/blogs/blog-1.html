@@ -1,0 +1,40 @@
+<h3>Live nodeList</h3>
+<blockquote>
+    <p>For some reason(fuck DOM standard),when we use some method  for query nodeList or HTMLCollection(It’s another fucking thing),we will get a <strong>live</strong> nodeList or HTMLCollection. The <strong>live</strong> is mean this collection or <strong>array like object</strong> (fuck the javascript, why so many “surprise” ?) maybe change when you update the node property.&gt;</p>
+    <hr>
+    <p>The problem will boom when we iterate this nodeList, if we change the node property in iterate. I show the code follow for explain it.</p>
+    <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0=<span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
+R.map(
+  (x)=&gt;x.className=<span class="hljs-string">"another_class"</span> ,
+  nodeList_0
+)<span class="hljs-comment">//you will get type error for get className for undefined</span>
+</code></pre>
+    <p>What happen? &lt;br&gt; &lt;br&gt;<br>
+        Becuse the nodeList_0 is a <strong>live</strong> nodeList, so when you change the node’s property <strong>className</strong>, the nodeList_0 will update,assume the nodeList_0 's <strong>length</strong> is 3, now the <strong>length</strong> will update to 2. Becasue the getElemnetsByClassName only got two element. So when you access nodeList[2], you will got a undefined.<br>
+        &lt;br&gt;<br>
+        So, how to avoid this problem? &lt;br&gt;</p>
+    <ol>
+        <li>jquery.</li>
+    </ol>
+    <pre><code class="language-javascript">  $(<span class="hljs-string">".cerain_class"</span>).each(
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      <span class="hljs-keyword">this</span>.className = <span class="hljs-string">"another_class"</span>
+  }
+  )
+</code></pre>
+    <ol start="2">
+        <li>Create another array to store nodeList_0 element.</li>
+    </ol>
+    <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0 = R.map(
+  R.identity,
+  <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
+)
+R.forEach(
+  (zxc) =&gt; zxc.className = <span class="hljs-string">"another_class"</span>,
+  even_li_list
+)
+</code></pre>
+</blockquote>
+<p>That is all, thank you.</p>
+
+</body>
