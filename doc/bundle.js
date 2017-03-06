@@ -273,7 +273,7 @@
 	                        console.log(ajax.status);
 	                    }
 	                };
-	                ajax.open('GET', 'doc/blog-' + i + '.html', true);
+	                ajax.open('GET', 'doc/blogs/blog-' + i + '.html', true);
 	                ajax.send(null);
 	            };
 
@@ -314,7 +314,7 @@
 	                console.log(_ajax.status);
 	            }
 	        };
-	        _ajax.open('GET', 'doc/blog_count.js', true);
+	        _ajax.open('GET', 'doc/blogs/blog_count.js', true);
 	        _ajax.send(null);
 	    } else {
 	        loadBlogArray();

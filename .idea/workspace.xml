@@ -18,7 +18,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="461">
@@ -28,10 +28,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="my-blog.jsx" pinned="false" current-in-tab="false">
+      <file leaf-file-name="my-blog.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/doc/my-blog.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
+            <state relative-caret-position="-1883">
               <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -204,12 +204,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1488822978183</updated>
-      <workItem from="1488822986527" duration="1459000" />
+      <workItem from="1488822986527" duration="2208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1459000" />
+    <option name="totallyTimeSpent" value="2208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-33" width="1920" height="1113" extended-state="1" />
@@ -260,9 +260,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/doc/my-blog.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
+        <state relative-caret-position="-1883">
           <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
@@ -271,14 +279,6 @@
             <marker date="1488824222936" expanded="true" signature="2275:2330" ph="..." />
             <marker date="1488824222936" expanded="true" signature="2556:2798" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
