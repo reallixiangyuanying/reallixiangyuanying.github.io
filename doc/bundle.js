@@ -161,7 +161,7 @@
 	        this.changeContent();
 	    },
 	    render: function render() {
-	        return _react2.default.createElement('div', { rel: 'contentDiv', id: 'article', className: 'article',
+	        return _react2.default.createElement('div', { rel: 'contentDiv', id: 'article', className: 'container article',
 	            dangerouslySetInnerHTML: { __html: this.state.content } });
 	    }
 	});
@@ -183,7 +183,7 @@
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'container section' },
+	            { className: ' section' },
 	            this.props.children
 	        );
 	    }
