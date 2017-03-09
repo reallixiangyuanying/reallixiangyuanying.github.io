@@ -56,133 +56,128 @@
 
 	var _reactRouter = __webpack_require__(178);
 
+	var _component = __webpack_require__(233);
+
+	var _component2 = _interopRequireDefault(_component);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var blogs = [];
-	var blogCount = 0;
-	var Nav = _react2.default.createClass({
-	    displayName: 'Nav',
+	var lock = false;
+	var callbacks = [];
 
-	    brandStyle: {
-	        color: "#a29e9e"
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'nav',
-	            { className: 'navbar navbar-toggleable-md navbar-light bg-faded ' },
-	            _react2.default.createElement(
-	                'button',
-	                { className: 'navbar-toggler navbar-toggler-right', type: 'button', 'data-toggle': 'collapse',
-	                    'data-target': '#navbarSupportedContent', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false',
-	                    'aria-label': 'Toggle navigation' },
-	                _react2.default.createElement('span', { className: 'navbar-toggler-icon' })
-	            ),
-	            _react2.default.createElement(
-	                'a',
-	                { className: 'navbar-brand', href: '#' },
-	                _react2.default.createElement(
-	                    'i',
-	                    { style: this.brandStyle },
-	                    'Jituan \'s Blog'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'collapse navbar-collapse mx-auto ', id: 'navbarSupportedContent' },
-	                _react2.default.createElement(
-	                    'ul',
-	                    { className: 'navbar-nav mr-auto' },
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'nav-item ' },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { className: 'nav-link my-li', to: '/home' },
-	                            'Home ',
-	                            _react2.default.createElement(
-	                                'span',
-	                                {
-	                                    className: 'sr-only' },
-	                                '(current)'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'nav-item' },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { className: 'nav-link my-li', to: '/blog' },
-	                            'Blog'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'nav-item' },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { className: 'nav-link my-li', to: '/about' },
-	                            'About'
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	var homePage = '\n        <h3>Welcome to Jci \'s Blog!</h3>\n        <blockquote class="blockquote">\n            <p>This blog is for talk about programming. Personally, it \'s special for <strong>javascript</strong>, <strong>HTML</strong>\n                and <strong>CSS</strong> as also as <strong>clojure</strong>. Now this blog is deplog in github page, but\n                finally, I will let it become a really personal blog (with database and back-end) with\n                <strong>clojure</strong>, some code you cound find in github <a href="https://github.com/JciGi/JciBl"><em>\u201CJciBl\u201D</em></a>.<be/>\n                If you interested in <strong>front-end</strong> develpment, there are some blog (<em>\u201CJci\u2019s Blog\u201D</em>)[<a\n                href="http://google.com">google.com</a>] about it.<br/>\n                As a newbie, maybe this blog is native tecknically, feedback for me,<strong>thank you</strong>!</p>\n        </blockquote>';
-
-	var aboutPage = '\n<h3>Who am I?</h3>\n\t<blockquote class="blockquote">\n\t\t<p>I am linjituan,this is my github <a href="https://www.google.com">jituan \'s blog</a>,my wechat number is \u201Clinjituan520\u201D,and my gmail is \u2018jituanlin@gmail.com\u2019,until now this blog is finish a little,welcome to feedback!</p>\n\t</blockquote>';
-	var Article = _react2.default.createClass({
-	    displayName: 'Article',
-	    render: function render() {
-	        return _react2.default.createElement('div', { id: 'article', className: 'container article ', dangerouslySetInnerHTML: this.props.content || this.props.route.content });
-	    }
-	});
 	var ArticleList = _react2.default.createClass({
 	    displayName: 'ArticleList',
+	    changeToGroupList: function changeToGroupList(blogs) {
+	        var heads = blogs.map(function (x) {
+	            return x.match(/^(.*)$/m)[0].match(/<h3>(.*?)<\/h3>/)[1];
+	        });
+	        var headList = heads.map(function (x, n) {
+	            return _react2.default.createElement(
+	                'li',
+	                { className: 'list-group-item', key: n },
+	                _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { className: 'my-li', to: 'blog/#blog_' + n },
+	                    x
+	                )
+	            );
+	        });
+	        var Result = _react2.default.createClass({
+	            displayName: 'Result',
+	            render: function render() {
+	                return _react2.default.createElement(
+	                    'ul',
+	                    { className: 'list-group' },
+	                    this.props.children
+	                );
+	            }
+	        });
+	        this.setState({
+	            content: _react2.default.createElement(Result, { children: headList })
+	        });
+	    },
 	    getInitialState: function getInitialState() {
 	        return {
-	            groupList: _react2.default.createElement(
+	            content: _react2.default.createElement(
 	                'p',
 	                null,
-	                'load blog contents...'
+	                'loading blog contents...'
 	            )
 	        };
 	    },
 	    hashHandler: function hashHandler() {
 	        var _this = this;
 
-	        var getContent = function getContent() {
+	        var changeToSingleArticle = function changeToSingleArticle() {
 	            _this.setState({
-	                groupList: _react2.default.createElement(Article, { content: { __html: blogs[window.location.hash.substr(13).toString()] } })
+	                content: _react2.default.createElement(Article, { content: blogs[window.location.hash.substr(13).toString()] })
 	            });
 	        };
 	        switch (window.location.hash) {
 	            case '#/blog':
-	                loadBlog('headUl', this.changeGroupList);
+	                loadBlog(this.changeToGroupList);
 	                break;
 	            default:
-	                getContent();
+	                changeToSingleArticle();
 	        }
 	    },
 	    componentDidMount: function componentDidMount() {
-	        loadBlog('headUl', this.changeGroupList);
+	        loadBlog(this.changeToGroupList);
 	        window.addEventListener('hashchange', this.hashHandler);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
 	        window.removeEventListener('hashchange', this.hashHandler);
 	    },
-	    changeGroupList: function changeGroupList(contens) {
-	        this.setState({
-	            groupList: contens
-	        });
-	    },
 	    render: function render() {
-	        return this.state.groupList;
+	        return this.state.content;
 	    }
 	});
+	var Article = _react2.default.createClass({
+	    displayName: 'Article',
+	    getInitialState: function getInitialState() {
+	        return {
+	            content: this.props.content || this.props.route.content || "loading..."
+	        };
+	    },
+	    changeContent: function changeContent() {
+	        var _this2 = this;
+
+	        if (this.props.route) {
+	            this.props.route.getContentPromise.then(function (contentString) {
+	                _this2.setState({
+	                    content: contentString
+	                });
+	            });
+	        }
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.changeContent();
+	    },
+	    render: function render() {
+	        return _react2.default.createElement('div', { rel: 'contentDiv', id: 'article', className: 'container article',
+	            dangerouslySetInnerHTML: { __html: this.state.content } });
+	    }
+	});
+
+	var ArticleForFuckingRouterPerformanceOptimise = function (_Article) {
+	    _inherits(ArticleForFuckingRouterPerformanceOptimise, _Article);
+
+	    function ArticleForFuckingRouterPerformanceOptimise() {
+	        _classCallCheck(this, ArticleForFuckingRouterPerformanceOptimise);
+
+	        return _possibleConstructorReturn(this, (ArticleForFuckingRouterPerformanceOptimise.__proto__ || Object.getPrototypeOf(ArticleForFuckingRouterPerformanceOptimise)).apply(this, arguments));
+	    }
+
+	    return ArticleForFuckingRouterPerformanceOptimise;
+	}(Article);
+
 	var Section = _react2.default.createClass({
 	    displayName: 'Section',
 	    render: function render() {
@@ -199,7 +194,7 @@
 	        return _react2.default.createElement(
 	            'header',
 	            null,
-	            _react2.default.createElement(Nav, null)
+	            _react2.default.createElement(_component2.default, null)
 	        );
 	    }
 	});
@@ -214,14 +209,10 @@
 	        );
 	    }
 	});
-
-	var getBlogRoute = function getBlogRoute() {
-	    return _react2.default.createElement(
-	        _reactRouter.Route,
-	        { path: '/blog', component: Section },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: ArticleList })
-	    );
-	};
+	var homeUrl = "doc/blogs/home_page.html";
+	var aboutUrl = "doc/blogs/about_page.html";
+	// "../public/home_page.html"
+	// "../public/about_page.html"
 	var MyRouter = _react2.default.createClass({
 	    displayName: 'MyRouter',
 	    render: function render() {
@@ -231,94 +222,65 @@
 	            _react2.default.createElement(
 	                _reactRouter.Route,
 	                { path: '/', component: RootDiv },
-	                _react2.default.createElement(_reactRouter.IndexRoute, { component: Article, content: { __html: homePage } }),
-	                _react2.default.createElement(_reactRouter.Route, { path: 'home', component: Article, content: { __html: homePage } }),
-	                getBlogRoute(),
-	                _react2.default.createElement(_reactRouter.Route, { path: 'about', component: Article, content: { __html: aboutPage } })
+	                _react2.default.createElement(_reactRouter.IndexRoute, { component: Article,
+	                    getContentPromise: loadSinglePagePromise(homeUrl) }),
+	                _react2.default.createElement(
+	                    _reactRouter.Route,
+	                    { path: '/blog', component: Section },
+	                    _react2.default.createElement(_reactRouter.IndexRoute, { component: ArticleList })
+	                ),
+	                _react2.default.createElement(_reactRouter.Route, { path: 'about', component: ArticleForFuckingRouterPerformanceOptimise,
+	                    getContentPromise: loadSinglePagePromise(aboutUrl) })
 	            )
 	        );
 	    }
 	});
 	_reactDom2.default.render(_react2.default.createElement(MyRouter, null), document.getElementById('root'));
-	function loadBlog(queryType, callback) {
-	    var getHeads = function getHeads() {
-	        return blogs.map(function (x) {
-	            return x.match(/^(.*)$/m)[0].match(/<h3>(.*?)<\/h3>/)[1];
-	        });
-	    };
-	    var getList = function getList() {
-	        return getHeads().map(function (x, n) {
-	            return _react2.default.createElement(
-	                'li',
-	                { className: 'list-group-item', key: n },
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { className: 'my-li', to: 'blog/#blog_' + n },
-	                    x
-	                )
-	            );
-	        });
-	    };
-	    var loadBlogArray = function loadBlogArray() {
-	        if (blogs.length === 0) {
-	            var _loop = function _loop(i) {
-	                var ajax = new XMLHttpRequest();
-	                ajax.onload = function () {
-	                    if (ajax.status === 200) {
-	                        blogs[i] = ajax.responseText;
-	                        if (i === blogCount - 1) {
-	                            returnContents();
-	                        }
-	                    } else {
-	                        console.log(ajax.status);
-	                    }
-	                };
-	                ajax.open('GET', 'doc/blogs/blog-' + i + '.html', true);
-	                ajax.send(null);
+	function loadBlog(callback) {
+	    if (lock === false && blogs.length !== 0) {
+	        callback(blogs);
+	        return;
+	    }
+	    callbacks.push(callback);
+	    if (lock === false) loadOneBlog(0);
+	    function loadOneBlog(index) {
+	        lock = true;
+	        new Promise(function (resolve, reject) {
+	            var ajax = new XMLHttpRequest();
+	            ajax.onload = function () {
+	                if (ajax.status === 200) {
+	                    blogs.push(ajax.responseText);
+	                    resolve(index + 1);
+	                } else {
+	                    reject(blogs);
+	                }
 	            };
-
-	            for (var i = 0; i < blogCount; i++) {
-	                _loop(i);
-	            }
-	        } else {
-	            returnContents();
-	        }
-	    };
-	    var returnContents = function returnContents() {
-	        switch (queryType) {
-	            case 'headUl':
-	                var Result = _react2.default.createClass({
-	                    displayName: 'Result',
-	                    render: function render() {
-	                        return _react2.default.createElement(
-	                            'ul',
-	                            { className: 'list-group' },
-	                            this.props.children
-	                        );
-	                    }
-	                });
-	                callback(_react2.default.createElement(Result, { children: getList() }));
-	                break;
-	            case 'blogHeadArray':
-	                callback(getHeads());
-	                break;
-	        }
-	    };
-	    if (blogCount === 0) {
-	        var _ajax = new XMLHttpRequest();
-	        _ajax.onload = function () {
-	            if (_ajax.status === 200) {
-	                blogCount = Number(_ajax.responseText);
-	                loadBlogArray();
+	            // ajax.open('GET', `../public/blog_${index}.html`, true)
+	            ajax.open('GET', 'doc/blogs/blog_' + index + '.html', true);
+	            ajax.send(null);
+	        }).then(function (index) {
+	            return loadOneBlog(index);
+	        }, function (blogs) {
+	            callbacks.forEach(function (callback) {
+	                return callback(blogs);
+	            });
+	            lock = false;
+	        });
+	    }
+	}
+	function loadSinglePagePromise(url) {
+	    return new Promise(function (resolve, reject) {
+	        var ajax = new XMLHttpRequest();
+	        ajax.onload = function () {
+	            if (ajax.status === 200) {
+	                resolve(ajax.responseText);
 	            } else {
-	                console.log(_ajax.status);
+	                reject(ajax.status);
 	            }
 	        };
-	        _ajax.open('GET', 'doc/blogs/blog_count.js', true);
-	        _ajax.send(null);
-	    } else {
-	        loadBlogArray();
-	    }
+	        ajax.open('GET', url, true);
+	        ajax.send(null);
+	    });
 	}
 
 /***/ },
@@ -26791,6 +26753,93 @@
 	  });
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Nav = _react2.default.createClass({
+	    displayName: 'Nav',
+
+	    brandStyle: {
+	        color: "#a29e9e"
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'nav',
+	            { className: 'navbar navbar-toggleable-md navbar-light bg-faded ' },
+	            _react2.default.createElement(
+	                'button',
+	                { className: 'navbar-toggler navbar-toggler-right', type: 'button', 'data-toggle': 'collapse',
+	                    'data-target': '#navbarSupportedContent', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false',
+	                    'aria-label': 'Toggle navigation' },
+	                _react2.default.createElement('span', { className: 'navbar-toggler-icon' })
+	            ),
+	            _react2.default.createElement(
+	                'a',
+	                { className: 'navbar-brand', href: '#' },
+	                _react2.default.createElement(
+	                    'i',
+	                    { style: this.brandStyle },
+	                    'Jituan \'s Blog'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'collapse navbar-collapse mx-auto ', id: 'navbarSupportedContent' },
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: 'navbar-nav mr-auto' },
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'nav-item ' },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { className: 'nav-link my-li', to: '/' },
+	                            'Home ',
+	                            _react2.default.createElement(
+	                                'span',
+	                                {
+	                                    className: 'sr-only' },
+	                                '(current)'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'nav-item' },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { className: 'nav-link my-li', to: '/blog' },
+	                            'Blog'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'nav-item' },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { className: 'nav-link my-li', to: '/about' },
+	                            'About'
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Nav;
 
 /***/ }
 /******/ ]);
