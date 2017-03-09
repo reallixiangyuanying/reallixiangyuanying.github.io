@@ -161,7 +161,7 @@
 	        this.changeContent();
 	    },
 	    render: function render() {
-	        return _react2.default.createElement('div', { rel: 'contentDiv', id: 'article', className: 'container article',
+	        return _react2.default.createElement('div', { rel: 'contentDiv', id: 'article', className: 'article',
 	            dangerouslySetInnerHTML: { __html: this.state.content } });
 	    }
 	});
