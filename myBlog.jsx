@@ -24,16 +24,15 @@ const ArticleList = React.createClass({
         let Result = React.createClass({
             render(){
                 return <Switch>
-                    <Route exact path="/blog">
-                        <ul className="list-group">
-                            {this.props.children}
-                        </ul>
+                    <Route exact path="/blog" render={
+                        ()=><Aa children={this.props.children}/>
+                    }>
+
                     </Route>
                     {heads.map(
                         (head, n) => <Route key={head} path={`/blog/${head}`}
                                             render={
                                                 () => {
-                                                    console.log("fuck")
                                                     return <Article
                                                         getContentPromise={loadSinglePagePromise(`http://localhost:9080/doc/blogs/blog_${n}.html`)}/>
                                                 }
@@ -53,7 +52,6 @@ const ArticleList = React.createClass({
         }
     },
     componentDidMount(){
-        console.log("didmount")
         loadBlog(this.changeToGroupList)
     },
     render(){
@@ -113,7 +111,6 @@ const MyRouter = React.createClass({
                     <Route path='/about' render={() => <Article getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
                     <Route path='/blog'
                            render={() =>{
-                               console.log("first blog")
                                return <ArticleList />}
                            }
                                />
@@ -146,7 +143,6 @@ function loadBlog(callback) {
                         reject(blogs)
                     }
                 }
-                // ajax.open('GET', `../public/blog_${index}.html`, true)
                 ajax.open('GET', `doc/blogs/blog_${index}.html`, true)
                 ajax.send(null)
             }
