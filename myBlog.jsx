@@ -1,0 +1,181 @@
+import React from 'react'
+import ReactDom from 'react-dom'
+import {BrowserRouter, Route, Link, Switch} from 'react-router-dom'
+import Nav from "./component.jsx"
+let blogs = []
+let lock = false
+let callbacks = []
+
+const Aa=React.createClass({
+    render(){
+        return <ul className="list-group">
+            {this.props.children}
+        </ul>
+    }
+})
+
+const ArticleList = React.createClass({
+    changeToGroupList(blogs){
+        const heads = blogs.map((x) => x.match(/^(.*)$/m)[0].match(/<h3>(.*?)<\/h3>/)[1])
+        const headList = heads.map(
+            (head) => <li className="list-group-item" key={head}><Link className='my-li'
+                                                                       to={`blog/${head}`}>{head}</Link>
+            </li>)
+        let Result = React.createClass({
+            render(){
+                return <Switch>
+                    <Route exact path="/blog">
+                        <ul className="list-group">
+                            {this.props.children}
+                        </ul>
+                    </Route>
+                    {heads.map(
+                        (head, n) => <Route key={head} path={`/blog/${head}`}
+                                            render={
+                                                () => {
+                                                    console.log("fuck")
+                                                    return <Article
+                                                        getContentPromise={loadSinglePagePromise(`http://localhost:9080/doc/blogs/blog_${n}.html`)}/>
+                                                }
+                                            }
+                        />
+                    )}
+                </Switch>
+            }
+        })
+        this.setState({
+            content: <Result children={headList}/>
+        })
+    },
+    getInitialState(){
+        return {
+            content: (<p>loading blog contents...</p>)
+        }
+    },
+    componentDidMount(){
+        console.log("didmount")
+        loadBlog(this.changeToGroupList)
+    },
+    render(){
+        return this.state.content
+    }
+})
+const Article = React.createClass({
+    getInitialState(){
+        return {
+            content: "loading..."
+        }
+    },
+    changeContent(){
+
+        this.props.getContentPromise
+            .then(
+                (contentString) => {
+                    this.refs["contentDiv"].innerHTML = contentString
+                }
+            )
+
+    },
+    componentDidMount(){
+        this.changeContent()
+    },
+    render(){
+        return <div ref="contentDiv" id="article" className="container article">
+        </div>
+    }
+})
+
+
+const Head = React.createClass({
+    render(){
+        return <header>
+            <Nav/>
+        </header>
+    }
+})
+const RootDiv = React.createClass({
+    render(){
+        return <div>
+            <Head/>
+            {this.props.children}
+        </div>
+    }
+})
+const homeUrl = "doc/blogs/home_page.html"
+const aboutUrl = "doc/blogs/about_page.html"
+
+const MyRouter = React.createClass({
+    render(){
+        return <BrowserRouter>
+            <RootDiv>
+                <Switch>
+                    <Route exact path="/" render={() => <Article getContentPromise={loadSinglePagePromise(homeUrl)}/>}/>
+                    <Route path='/about' render={() => <Article getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
+                    <Route path='/blog'
+                           render={() =>{
+                               console.log("first blog")
+                               return <ArticleList />}
+                           }
+                               />
+                </Switch>
+            </RootDiv>
+        </BrowserRouter>
+    }
+})
+ReactDom.render(
+    <MyRouter/>,
+    document.getElementById('root')
+)
+function loadBlog(callback) {
+    if (lock === false && blogs.length !== 0) {
+        callback(blogs)
+        return
+    }
+    callbacks.push(callback)
+    if (lock === false) loadOneBlog(0)
+    function loadOneBlog(index) {
+        lock = true
+        new Promise(
+            (resolve, reject) => {
+                let ajax = new XMLHttpRequest()
+                ajax.onload = () => {
+                    if (ajax.status === 200) {
+                        blogs.push(ajax.responseText)
+                        resolve(index + 1)
+                    } else {
+                        reject(blogs)
+                    }
+                }
+                // ajax.open('GET', `../public/blog_${index}.html`, true)
+                ajax.open('GET', `doc/blogs/blog_${index}.html`, true)
+                ajax.send(null)
+            }
+        )
+            .then(
+                index => loadOneBlog(index),
+                blogs => {
+                    callbacks.forEach(
+                        (callback) => callback(blogs)
+                    )
+                    lock = false
+                }
+            )
+    }
+}
+function loadSinglePagePromise(url) {
+    console.log(url)
+    return new Promise(
+        (resolve, reject) => {
+            let ajax = new XMLHttpRequest()
+            ajax.onload = () => {
+                if (ajax.status === 200) {
+                    resolve(ajax.responseText)
+                } else {
+                    reject(ajax.status)
+                }
+            }
+            ajax.open('GET', url, true)
+            ajax.send(null)
+        }
+    )
+}
