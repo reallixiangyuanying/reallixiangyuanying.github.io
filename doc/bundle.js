@@ -10587,7 +10587,11 @@ var ArticleList = _react2.default.createClass({
         loadBlog(this.changeToGroupList);
     },
     render: function render() {
-        return this.state.content;
+        return _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            this.state.content
+        );
     }
 });
 

@@ -55,7 +55,9 @@ const ArticleList = React.createClass({
         loadBlog(this.changeToGroupList)
     },
     render(){
-        return this.state.content
+        return <div className="container">
+            {this.state.content}
+        </div>
     }
 })
 
@@ -160,8 +162,8 @@ function loadBlog(callback) {
             )
     }
 }
+
 function loadSinglePagePromise(url) {
-    console.log(url)
     return new Promise(
         (resolve, reject) => {
             let ajax = new XMLHttpRequest()
