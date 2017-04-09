@@ -10509,12 +10509,6 @@ var _component2 = _interopRequireDefault(_component);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var blogs = [];
 var lock = false;
 var callbacks = [];
@@ -10563,7 +10557,7 @@ var ArticleList = _react2.default.createClass({
                         return _react2.default.createElement(_reactRouterDom.Route, { key: head, path: '/blog/' + head,
                             render: function render() {
                                 return _react2.default.createElement(Article, {
-                                    getContentPromise: loadSinglePagePromise('/doc/blogs/blog_' + n + '.html') });
+                                    getContentPromise: loadSinglePagePromise('http://localhost:9080/doc/blogs/blog_' + n + '.html') });
                             }
                         });
                     })
@@ -10590,7 +10584,6 @@ var ArticleList = _react2.default.createClass({
         return this.state.content;
     }
 });
-
 var Article = _react2.default.createClass({
     displayName: 'Article',
     getInitialState: function getInitialState() {
@@ -10653,7 +10646,7 @@ var MyRouter = _react2.default.createClass({
                             return _react2.default.createElement(Article, { getContentPromise: loadSinglePagePromise(homeUrl) });
                         } }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/about', render: function render() {
-                            return _react2.default.createElement(Article2, { getContentPromise: loadSinglePagePromise(aboutUrl) });
+                            return _react2.default.createElement(Article, { getContentPromise: loadSinglePagePromise(aboutUrl) });
                         } }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/blog',
                         render: function render() {
@@ -10665,19 +10658,6 @@ var MyRouter = _react2.default.createClass({
         );
     }
 });
-
-var Article2 = function (_Article) {
-    _inherits(Article2, _Article);
-
-    function Article2() {
-        _classCallCheck(this, Article2);
-
-        return _possibleConstructorReturn(this, (Article2.__proto__ || Object.getPrototypeOf(Article2)).apply(this, arguments));
-    }
-
-    return Article2;
-}(Article);
-
 _reactDom2.default.render(_react2.default.createElement(MyRouter, null), document.getElementById('root'));
 function loadBlog(callback) {
     if (lock === false && blogs.length !== 0) {

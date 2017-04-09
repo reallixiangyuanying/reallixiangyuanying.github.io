@@ -34,7 +34,7 @@ const ArticleList = React.createClass({
                                             render={
                                                 () => {
                                                     return <Article
-                                                        getContentPromise={loadSinglePagePromise(`http://localhost:9080/doc/blogs/blog_${n}.html`)}/>
+                                                        getContentPromise={loadSinglePagePromise(`/doc/blogs/blog_${n}.html`)}/>
                                                 }
                                             }
                         />
@@ -58,6 +58,7 @@ const ArticleList = React.createClass({
         return this.state.content
     }
 })
+
 const Article = React.createClass({
     getInitialState(){
         return {
@@ -108,7 +109,7 @@ const MyRouter = React.createClass({
             <RootDiv>
                 <Switch>
                     <Route exact path="/" render={() => <Article getContentPromise={loadSinglePagePromise(homeUrl)}/>}/>
-                    <Route path='/about' render={() => <Article getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
+                    <Route path='/about' render={() => <Article2 getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
                     <Route path='/blog'
                            render={() =>{
                                return <ArticleList />}
@@ -119,6 +120,7 @@ const MyRouter = React.createClass({
         </BrowserRouter>
     }
 })
+class Article2 extends Article{}
 ReactDom.render(
     <MyRouter/>,
     document.getElementById('root')
