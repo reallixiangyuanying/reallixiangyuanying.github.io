@@ -24,13 +24,13 @@ const ArticleList = React.createClass({
         let Result = React.createClass({
             render(){
                 return <Switch>
-                    <Route exact path="#/blog" render={
+                    <Route exact path="/blog" render={
                         ()=><Aa children={this.props.children}/>
                     }>
 
                     </Route>
                     {heads.map(
-                        (head, n) => <Route key={head} path={`#/blog/${head}`}
+                        (head, n) => <Route key={head} path={`/blog/${head}`}
                                             render={
                                                 () => {
                                                     return <Article
@@ -108,9 +108,9 @@ const MyRouter = React.createClass({
         return <BrowserRouter>
             <RootDiv>
                 <Switch>
-                    <Route exact path="#/" render={() => <Article getContentPromise={loadSinglePagePromise(homeUrl)}/>}/>
-                    <Route path='#/about' render={() => <Article2 getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
-                    <Route path='#/blog'
+                    <Route exact path="/" render={() => <Article getContentPromise={loadSinglePagePromise(homeUrl)}/>}/>
+                    <Route path='/about' render={() => <Article2 getContentPromise={loadSinglePagePromise(aboutUrl)}/>}/>
+                    <Route path='/blog'
                            render={() =>{
                                return <ArticleList />}
                            }

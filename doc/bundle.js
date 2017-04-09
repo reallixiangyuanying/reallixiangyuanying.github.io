@@ -10440,7 +10440,7 @@ var Nav = _react2.default.createClass({
                         { className: 'nav-item ' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { className: 'nav-link my-li', to: '#/' },
+                            { className: 'nav-link my-li', to: '/' },
                             'Home ',
                             _react2.default.createElement(
                                 'span',
@@ -10455,7 +10455,7 @@ var Nav = _react2.default.createClass({
                         { className: 'nav-item' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { className: 'nav-link my-li', to: '#/blog' },
+                            { className: 'nav-link my-li', to: '/blog' },
                             'Blog'
                         )
                     ),
@@ -10464,7 +10464,7 @@ var Nav = _react2.default.createClass({
                         { className: 'nav-item' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { className: 'nav-link my-li', to: '#/about' },
+                            { className: 'nav-link my-li', to: '/about' },
                             'About'
                         )
                     )
@@ -10556,11 +10556,11 @@ var ArticleList = _react2.default.createClass({
                 return _react2.default.createElement(
                     _reactRouterDom.Switch,
                     null,
-                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '#/blog', render: function render() {
+                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/blog', render: function render() {
                             return _react2.default.createElement(Aa, { children: _this.props.children });
                         } }),
                     heads.map(function (head, n) {
-                        return _react2.default.createElement(_reactRouterDom.Route, { key: head, path: '#/blog/' + head,
+                        return _react2.default.createElement(_reactRouterDom.Route, { key: head, path: '/blog/' + head,
                             render: function render() {
                                 return _react2.default.createElement(Article, {
                                     getContentPromise: loadSinglePagePromise('/doc/blogs/blog_' + n + '.html') });
@@ -10649,13 +10649,13 @@ var MyRouter = _react2.default.createClass({
                 _react2.default.createElement(
                     _reactRouterDom.Switch,
                     null,
-                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '#/', render: function render() {
+                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
                             return _react2.default.createElement(Article, { getContentPromise: loadSinglePagePromise(homeUrl) });
                         } }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '#/about', render: function render() {
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/about', render: function render() {
                             return _react2.default.createElement(Article2, { getContentPromise: loadSinglePagePromise(aboutUrl) });
                         } }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '#/blog',
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/blog',
                         render: function render() {
                             return _react2.default.createElement(ArticleList, null);
                         }
