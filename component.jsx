@@ -15,14 +15,14 @@ const Nav = React.createClass({
             <div className="collapse navbar-collapse mx-auto " id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item ">
-                        <Link className="nav-link my-li" to="/">Home <span
+                        <Link className="nav-link my-li" to="#/">Home <span
                             className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link my-li" to="/blog">Blog</Link>
+                        <Link className="nav-link my-li" to="#/blog">Blog</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link my-li" to="/about">About</Link>
+                        <Link className="nav-link my-li" to="#/about">About</Link>
                     </li>
                 </ul>
             </div>
