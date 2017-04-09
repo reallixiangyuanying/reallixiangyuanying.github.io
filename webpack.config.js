@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: './myBlog.jsx',
-    output: { path: __dirname, filename: 'bundle.js', publicPath: "/assets/" },
+    output: { path: `${__dirname}/doc/`, filename: 'bundle.js', publicPath: "/assets/" },
     module: {
         loaders: [
             {
