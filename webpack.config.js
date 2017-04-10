@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 
+
 module.exports = {
     entry: './myBlog.jsx',
     output: { path: `${__dirname}/doc/`, filename: 'bundle.js', publicPath: "/assets/" },
@@ -16,4 +17,15 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+            output: {
+                comments: false,
+            },
+        }),
+
+    ]
 };
