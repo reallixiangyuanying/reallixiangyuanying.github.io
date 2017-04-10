@@ -24,14 +24,11 @@ R.map(
     <ol start="2">
         <li>Create another array to store nodeList_0 element.</li>
     </ol>
-    <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0 = R.map(
-  R.identity,
-  <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
-)
-R.forEach(
-  (zxc) =&gt; zxc.className = <span class="hljs-string">"another_class"</span>,
-  even_li_list
-)
+    <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0=<span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
+R.map(
+  (x)=&gt;x.className=<span class="hljs-string">"another_class"</span> ,
+  nodeList_0
+)<span class="hljs-comment">//you will get type error for get className for undefined</span>
 </code></pre>
 </blockquote>
 <p>That is all, thank you.</p>
