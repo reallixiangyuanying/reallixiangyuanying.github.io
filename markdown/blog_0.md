@@ -2,43 +2,43 @@
 > As the ES6 came, we could solve the **callback hell** with the new functionality called ***Promise***.
 > When we use javascript in browser or node.js, the tricky problem around us that ***callback hell***, it cause by javascript characteristic: that single thread and callback function.
 > For example,when we want to get something from database, we use a callback function which will call when the database finish query, consider follow code:
-> ```javascript
-> const MongoClient = require('mongodb').MongoClient
-> 
-> function ifError(err, fun) {
->     if (err) {
->         console.log(err)
->     } else {
->         fun()
->     }
-> }
-> 
-> router.get(
->     '/',
->     (req, res) => {
->         const url = 'mongodb://localhost:27017/myProject'
->         MongoClient.connect(
->             url,
->             function (err, db) {
->                 ifError(
->                     err,
->                     () => {
->                         console.log("Connected successfully to server")
->                         let collection = db.collection('documents')
->                         collection.find({}).toArray(
->                             function (err, docs) {
->                                 ifError(
->                                     err,
->                                     () => {
->                                         res.json(docs)
->                                         db.close()
->                                     })
->                             })
->                     })
->             })
->     }
-> )
-> ```
+ ```javascript
+ const MongoClient = require('mongodb').MongoClient
+ 
+ function ifError(err, fun) {
+     if (err) {
+         console.log(err)
+     } else {
+         fun()
+     }
+ }
+ 
+ router.get(
+     '/',
+     (req, res) => {
+         const url = 'mongodb://localhost:27017/myProject'
+         MongoClient.connect(
+             url,
+             function (err, db) {
+                 ifError(
+                     err,
+                     () => {
+                         console.log("Connected successfully to server")
+                         let collection = db.collection('documents')
+                         collection.find({}).toArray(
+                             function (err, docs) {
+                                 ifError(
+                                     err,
+                                     () => {
+                                         res.json(docs)
+                                         db.close()
+                                     })
+                             })
+                     })
+             })
+     }
+ )
+```
 > In above example, we write a handler for respond all item in collection **documents** in mongodb ,however, we fail **callback hell** in this case.
 ---
 > First, we create a function that accept a err,if err, we console it, else we call the fun as callback.

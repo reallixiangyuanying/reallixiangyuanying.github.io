@@ -3,7 +3,8 @@
         <p>As the ES6 came, we could solve the <strong>callback hell</strong> with the new functionality called <strong><em>Promise</em></strong>.<br>
             When we use javascript in browser or node.js, the tricky problem around us that <strong><em>callback hell</em></strong>, it cause by javascript characteristic: that single thread and callback function.<br>
             For example,when we want to get something from database, we use a callback function which will call when the database finish query, consider follow code:</p>
-        <pre><code class="language-javascript"><span class="hljs-keyword">const</span> MongoClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>).MongoClient
+    </blockquote>
+    <pre><code class="language-javascript"><span class="hljs-keyword">const</span> MongoClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>).MongoClient
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ifError</span>(<span class="hljs-params">err, fun</span>) </span>{
     <span class="hljs-keyword">if</span> (err) {
@@ -39,6 +40,7 @@ router.get(
     }
 )
 </code></pre>
+    <blockquote>
         <p>In above example, we write a handler for respond all item in collection <strong>documents</strong> in mongodb ,however, we fail <strong>callback hell</strong> in this case.</p>
     </blockquote>
     <hr>
@@ -66,41 +68,37 @@ router.get(
             The <strong>then</strong> method will accept one or two function. If one, it will executed when the <strong>Promise</strong> call <strong>resolve</strong> function and always do some asynchronous operation and return the new <strong>Promise</strong>. If two, same as one,but the second function will call when the <strong>Promise</strong> call <strong>reject</strong>.<br>
             With the <strong>then</strong> method, we could chain the asynchronous operation, it is hard to say, let us consider follow code:</p>
     </blockquote>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> MongoClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>).MongoClient
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ifError</span>(<span class="hljs-params">err, fun</span>) </span>{
-    <span class="hljs-keyword">if</span> (err) {
-        <span class="hljs-built_in">console</span>.log(err)
-    } <span class="hljs-keyword">else</span> {
-        fun()
-    }
-}
-
+    <pre><code class="language-javascript"><span class="hljs-keyword">const</span> MongoClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>).MongoClient
 router.get(
     <span class="hljs-string">'/'</span>,
     (req, res) =&gt; {
         <span class="hljs-keyword">const</span> url = <span class="hljs-string">'mongodb://localhost:27017/myProject'</span>
-        MongoClient.connect(
-            url,
-            <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, db</span>) </span>{
-                ifError(
-                    err,
-                    () =&gt; {
-                        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Connected successfully to server"</span>)
-                        <span class="hljs-keyword">let</span> collection = db.collection(<span class="hljs-string">'documents'</span>)
-                        collection.find({}).toArray(
-                            <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, docs</span>) </span>{
-                                ifError(
-                                    err,
-                                    () =&gt; {
-                                        res.json(docs)
-                                        db.close()
-                                    })
-                            })
-                    })
-            })
+        <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(
+            (resolve, reject) =&gt; {
+                MongoClient.connect(url, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, db</span>) </span>{
+                    <span class="hljs-keyword">if</span> (err) {
+                        reject(err)
+                    } <span class="hljs-keyword">else</span> {
+                        resolve(db)
+                    }
+                })
+            }
+        )
+            .then(
+            (db) =&gt; db.collection(<span class="hljs-string">"documents"</span>)
+        )
+            .then(
+                collection=&gt;collection.find().toArray()
+            )
+            .then(
+                (docs)=&gt;res.json(docs)
+            )
+            .catch(
+                err=&gt;<span class="hljs-built_in">console</span>.log(err)
+            )
     }
 )
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"this log will emerge before the database find documents"</span>)
 </code></pre>
     <blockquote>
         <p>Above code do same thing with last code, but more readable.</p>
@@ -118,5 +116,3 @@ router.get(
             <li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises">https://developers.google.com/web/fundamentals/getting-started/primers/promises</a></li>
         </ol>
     </blockquote>
-
-
