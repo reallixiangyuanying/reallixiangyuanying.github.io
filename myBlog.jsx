@@ -34,7 +34,9 @@ const ArticleList = React.createClass({
                                             render={
                                                 () => {
                                                     return <Article
-                                                        getContentPromise={loadSinglePagePromise(`/doc/blogs/blog_${n}.html`)}/>
+                                                        getContentPromise={loadSinglePagePromise(`/doc/blogs/blog_${n}.html`)}
+                                                        notContainer={true}
+                                                    />
                                                 }
                                             }
                         />
@@ -81,7 +83,7 @@ const Article = React.createClass({
         this.changeContent()
     },
     render(){
-        return <div ref="contentDiv" id="article" className="container article">
+        return <div ref="contentDiv" id="article" className={this.props.notContainer?"article":"article container"}>
         </div>
     }
 })

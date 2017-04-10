@@ -1,6 +1,6 @@
 <h3>Live NodeList</h3>
 <blockquote>
-    <p>For some reason,when we use some method  for query nodeList or HTMLCollection,we will get a <strong>live</strong> nodeList or HTMLCollection. The <strong>live</strong> is mean this collection or <strong>array like object</strong> (fuck the javascript, why so many “surprise” ?) maybe change when you update the node property.&gt;</p>
+    <p>For some reason,when we use some method  for query nodeList or HTMLCollection,we will get a <strong>live</strong> nodeList or HTMLCollection. The <strong>live</strong> is mean this collection or <strong>array like object</strong>  maybe change when you update the node property.</p>
     <hr>
     <p>The problem will boom when we iterate this nodeList, if we change the node property in iterate. I show the code follow for explain it.</p>
     <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0=<span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
@@ -9,10 +9,9 @@ R.map(
   nodeList_0
 )<span class="hljs-comment">//you will get type error for get className for undefined</span>
 </code></pre>
-    <p>What happen? &lt;br&gt; &lt;br&gt;<br>
+    <p>What happen?
         Becuse the nodeList_0 is a <strong>live</strong> nodeList, so when you change the node’s property <strong>className</strong>, the nodeList_0 will update,assume the nodeList_0 's <strong>length</strong> is 3, now the <strong>length</strong> will update to 2. Becasue the getElemnetsByClassName only got two element. So when you access nodeList[2], you will got a undefined.<br>
-        &lt;br&gt;<br>
-        So, how to avoid this problem? &lt;br&gt;</p>
+        So, how to avoid this problem? </p>
     <ol>
         <li>jquery.</li>
     </ol>
@@ -36,5 +35,3 @@ R.forEach(
 </code></pre>
 </blockquote>
 <p>That is all, thank you.</p>
-
-</body>
