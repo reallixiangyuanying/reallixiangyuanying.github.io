@@ -158,7 +158,7 @@ function loadBlog(callback) {
                 blogs => {
                     callbacks.forEach(
                         (callback) => callback(blogs)
-                    )
+                    ) 
                     lock = false
                 }
             )
