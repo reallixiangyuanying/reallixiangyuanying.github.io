@@ -1,7 +1,6 @@
 <h3>Live NodeList</h3>
-<blockquote>
+       
     <p>For some reason,when we use some method  for query nodeList or HTMLCollection,we will get a <strong>live</strong> nodeList or HTMLCollection. The <strong>live</strong> is mean this collection or <strong>array like object</strong>  maybe change when you update the node property.</p>
-    <hr>
     <p>The problem will boom when we iterate this nodeList, if we change the node property in iterate. I show the code follow for explain it.</p>
     <pre><code class="language-javascript"><span class="hljs-keyword">let</span> nodeList_0=<span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"certain_class"</span>)
 R.map(
@@ -29,6 +28,6 @@ R.map(
   (x)=&gt;x.className=<span class="hljs-string">"another_class"</span> ,
   nodeList_0
 )<span class="hljs-comment">//you will get type error for get className for undefined</span>
-</code></pre>
-</blockquote>
+</code></pre> 
+        
 <p>That is all, thank you.</p>
