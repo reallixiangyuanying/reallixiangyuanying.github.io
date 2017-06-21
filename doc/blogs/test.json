@@ -1,22 +1,7 @@
 [
   {
-    "title":"callback VS promise",
+    "title":"测试",
     "time":"201706151",
-    "path":"https://jituanlin.github.io/doc/blogs/instead_callback_with_promise.html"
-  },
-  {
-    "title":"live nodeList",
-    "time":"201706152",
-    "path":"https://jituanlin.github.io/doc/blogs/live_nodeList.html"
-  },
-  {
-    "title":"why Windows",
-    "time":"201706153",
-    "path":"https://jituanlin.github.io/doc/blogs/why_windows.html"
-  },
-  {
-    "title":"hello node.js",
-    "time":"201706154",
-    "path":"https://jituanlin.github.io/doc/blogs/hello_world_nodejs.html"
+    "path":"https://jituanlin.github.io/doc/blogs/test.html"
   }
 ]
